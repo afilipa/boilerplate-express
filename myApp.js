@@ -11,6 +11,13 @@ var app = express();
 /** 1) Meet the node console. */
 console.log("Hello World");
 
+/** 7) Root-level Middleware - A logger */
+//  place it before all the routes !
+app.use((req, res, next) => {
+    console.log(req.method + " " + req.path + " - " + req.ip);
+    next();
+});
+
 /** 2) A first working Express Server */
 app.get('/', function (req, res) {
     res.send('Hello Express');
@@ -32,10 +39,6 @@ app.get("/json", (req, res) => {
 });
 /** 6) Use the .env file to configure the app */
 process.env.MESSAGE_STYLE = "uppercase";
-
-/** 7) Root-level Middleware - A logger */
-//  place it before all the routes !
-
 
 /** 8) Chaining middleware. A Time server */
 
